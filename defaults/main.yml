@@ -1,2 +1,25 @@
 ---
 # defaults file for msterhuj.victoriametrics_cluster
+victoriametrics_cluster_repo_url: "https://github.com/VictoriaMetrics/VictoriaMetrics"
+victoriametrics_cluster_download_url: "{{ victoriametrics_cluster_repo_url }}/releases/download/{{ victoriametrics_cluster_version }}\
+  /victoria-metrics-linux-{{ go_arch }}-{{ victoriametrics_cluster_version }}-cluster.tar.gz"
+victoriametrics_cluster_version: "v1.102.1"
+victoriametrics_cluster_force_install: false
+
+## enable or disable the installation of services
+victoriametrics_cluster_insert: true
+victoriametrics_cluster_storage: true
+victoriametrics_cluster_select: true
+
+## Configuration for vminsert service
+victoriametrics_insert_system_user: "vminsert"
+victoriametrics_insert_system_group: "{{ victoriametrics_insert_system_user }}"
+
+## Configuration for vminsert service
+victoriametrics_storage_system_user: "vmstorage"
+victoriametrics_storage_system_group: "{{ victoriametrics_storage_system_user }}"
+
+
+## Configuration for vmselect service
+victoriametrics_select_system_user: "vmselect"
+victoriametrics_select_system_group: "{{ victoriametrics_select_system_user }}"

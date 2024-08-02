@@ -1,0 +1,13 @@
+---
+# tasks file for msterhuj.victoriametrics_cluster
+- name: "Download victoriametrics cluster binary to tmp folder"
+  ansible.builtin.get_url:
+    url: "{{ victoriametrics_cluster_download_url }}"
+    dest: "/tmp/victoria-metrics-cluster-{{ victoriametrics_cluster_version }}.tar.gz"
+    mode: "0644"
+
+- name: "Extract victoriametrics cluster binary to /tmp"
+  ansible.builtin.unarchive:
+    src: "/tmp/victoria-metrics-cluster-{{ victoriametrics_cluster_version }}.tar.gz"
+    dest: "/tmp"
+    remote_src: true
