@@ -24,6 +24,18 @@ platforms:
     privileged: true
     cgroup_parent: docker.slice
     command: /lib/systemd/systemd
+  - name: debian-11
+    image: dokken/debian-11
+    pre_build_image: true
+    privileged: true
+    cgroup_parent: docker.slice
+    command: /lib/systemd/systemd
+  - name: debian-12
+    image: msterhuj/dokken-debian-12-python
+    pre_build_image: true
+    privileged: true
+    cgroup_parent: docker.slice
+    command: /lib/systemd/systemd
 provisioner:
   name: ansible
   playbooks:
