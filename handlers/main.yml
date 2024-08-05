@@ -12,12 +12,12 @@
 
 - name: "Restart vmstorage"
   ansible.builtin.systemd:
-    name: "vminsert"
+    name: "vmstorage"
     state: "restarted"
     enabled: true
 
 - name: "Restart vmselect"
   ansible.builtin.systemd:
-    name: "vminsert"
+    name: "vmselect"
     state: "restarted"
     enabled: true
