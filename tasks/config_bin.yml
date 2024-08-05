@@ -1,0 +1,17 @@
+---
+### this task file need to be call with the binary whanted to install in the variable _vmu_bin
+### the variable _vmu_bin is can be insert, storage or select
+- name: "Push relabel config for vminsert"
+  ansible.builtin.template:
+    src: "relabel.yml.j2"
+    dest: "{{ _victoriametrics_config_dir }}/relabel.yml"
+    mode: "0644"
+  notify: "Restart vm{{ _vmu_bin }}"
+  when: _vmu_bin == "insert"
+
+- name: "Push config file for vm{{ _vmu_bin }}"
+  ansible.builtin.template:
+    src: "vmbinary.conf.j2"
+    dest: "{{ _victoriametrics_config_dir }}/vm{{ _vmu_bin }}.yml"
+    mode: "0644"
+  notify: "Restart vm{{ _vmu_bin }}"

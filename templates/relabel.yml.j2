@@ -1,0 +1,3 @@
+{{ ansible_managed | comment }}
+
+{{ victoriametrics_insert_relabel_config | default('') | indent(2) }}

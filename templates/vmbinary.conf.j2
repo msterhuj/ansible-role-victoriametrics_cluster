@@ -1,0 +1,10 @@
+{{ ansible_managed | comment }}
+
+{% set _config = vars['victoriametrics_' + _vmu_bin + '_config'] %}
+{% for key, value in _config.items() | default({}) %}
+{{- key }}={{ value }}
+{% endfor %}
+
+{% if victoriametrics_insert_relabel_config != "" and _vmu_bin == "insert" %}
+relabelConfig={{ _victoriametrics_config_dir }}/relabel.yaml
+{% endif %}

@@ -14,11 +14,15 @@ victoriametrics_cluster_select: true
 ## Configuration for vminsert service
 victoriametrics_insert_system_user: "vminsert"
 victoriametrics_insert_system_group: "vminsert"
+victoriametrics_insert_config: {}
+victoriametrics_insert_relabel_config: ""
 
 ## Configuration for vminsert service
 victoriametrics_storage_system_user: "vmstorage"
 victoriametrics_storage_system_group: "vmstorage"
+victoriametrics_storage_config: {}
 
 ## Configuration for vmselect service
 victoriametrics_select_system_user: "vmselect"
 victoriametrics_select_system_group: "vmselect"
+victoriametrics_select_config: {}

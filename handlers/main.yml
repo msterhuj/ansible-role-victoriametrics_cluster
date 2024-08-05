@@ -3,3 +3,21 @@
 - name: "Reload systemd"
   ansible.builtin.systemd:
     daemon_reload: yes
+
+- name: "Restart vminsert"
+  ansible.builtin.systemd:
+    name: "vminsert"
+    state: "restarted"
+    enabled: true
+
+- name: "Restart vmstorage"
+  ansible.builtin.systemd:
+    name: "vminsert"
+    state: "restarted"
+    enabled: true
+
+- name: "Restart vmselect"
+  ansible.builtin.systemd:
+    name: "vminsert"
+    state: "restarted"
+    enabled: true
