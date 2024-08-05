@@ -1,43 +1,16 @@
 ---
-- name: "Assert if os dosn't support systemd"
-  ansible.builtin.fail:
-    msg: "This role only supports systemd based systems"
-  when: ansible_service_mgr != 'systemd'
+- name: "Include preflight tasks"
+  ansible.builtin.include_tasks: preflight.yml
+  tags:
+    - always
 
-## get the systemd version for service template
-- name: Get systemd version
-  ansible.builtin.command: systemctl --version
-  changed_when: false
-  check_mode: false
-  register: __systemd_version
-
-- name: Set systemd version fact
-  ansible.builtin.set_fact:
-    vminsert_systemd_version: "{{ __systemd_version.stdout_lines[0].split(' ')[-1] }}"
-
-## make list of services to be enabled and disabled
-- name: "Initialize the list of services to be enabled and disabled"
-  ansible.builtin.set_fact:
-    _victoriametrics_cluster_service_enabled: []
-    _victoriametrics_cluster_service_disabled: []
-
-- name: "Compute the list of services to be enabled and disabled"
-  ansible.builtin.set_fact:
-    _victoriametrics_cluster_service_enabled: >-
-      {{ _victoriametrics_cluster_service_enabled + [item.name]
-      if item.value else _victoriametrics_cluster_service_enabled }}
-    _victoriametrics_cluster_service_disabled: >-
-      {{ _victoriametrics_cluster_service_disabled + [item.name]
-      if not item.value else _victoriametrics_cluster_service_disabled }}
-  loop:
-    - { name: "insert", value: "{{ victoriametrics_cluster_insert }}" }
-    - { name: "storage", value: "{{ victoriametrics_cluster_storage }}" }
-    - { name: "select", value: "{{ victoriametrics_cluster_select }}" }
-
-- name: "Install binaries"
-  ansible.builtin.include_tasks: install.yml
+- name: "Include install tasks for each service enabled"
+  ansible.builtin.include_tasks: install_bin.yml
   loop: "{{ _victoriametrics_cluster_service_enabled }}"
   loop_control:
     loop_var: _vmu_bin
   vars:
     _vmu_bin: "{{ item }}"
+  tags:
+    - install
+    - update
