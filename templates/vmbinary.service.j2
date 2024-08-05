@@ -1,0 +1,27 @@
+{{ ansible_managed | comment }}
+[Unit]
+Description=VictoriaMetrics {{ _vmu_bin }} service
+After=network.target
+
+[Service]
+Type=simple
+User={{ _vmu_system_user }}
+Group={{ _vmu_system_group }}
+Restart=always
+EnvironmentFile={{ _victoriametrics_config_dir }}/vm{{ _vmu_bin }}.conf
+ExecStart={{ _victoriametrics_binary_install_dir }}/vm{{ _vmu_bin }}-prod -envflag.enable
+
+PrivateTmp=yes
+ProtectHome=yes
+NoNewPrivileges=yes
+
+ProtectSystem=full
+
+{% if _systemd_version | int >= 232 %}
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=yes
+{% endif %}
+
+[Install]
+WantedBy=multi-user.target

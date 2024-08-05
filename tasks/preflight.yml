@@ -13,7 +13,7 @@
 
 - name: Set systemd version fact
   ansible.builtin.set_fact:
-    vminsert_systemd_version: "{{ __systemd_version.stdout_lines[0].split(' ')[-1] }}"
+    _systemd_version: "{{ __systemd_version.stdout_lines[0].split(' ')[-1] }}"
 
 ## make list of services to be enabled and disabled
 - name: "Initialize the list of services to be enabled and disabled"
@@ -33,5 +33,3 @@
     - { name: "insert", value: "{{ victoriametrics_cluster_insert }}" }
     - { name: "storage", value: "{{ victoriametrics_cluster_storage }}" }
     - { name: "select", value: "{{ victoriametrics_cluster_select }}" }
-
-

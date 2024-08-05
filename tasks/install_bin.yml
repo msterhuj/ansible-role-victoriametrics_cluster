@@ -1,16 +1,16 @@
 ---
 ### this task file need to be call with the binary whanted to install in the variable _vmu_bin
 ### the variable _vmu_bin is can be insert, storage or select
-- name: "Set bin path"
+- name: "Set bin path fact for vm{{ _vmu_bin }}"
   ansible.builtin.set_fact:
     _vmu_full_bin_path: "{{ _victoriametrics_binary_install_dir }}/vm{{ _vmu_bin }}-prod"
 
-- name: "Check presnece of {{ _vmu_bin }}"
+- name: "Check presnece of vm{{ _vmu_bin }}"
   ansible.builtin.stat:
     path: "{{ _vmu_full_bin_path }}"
   register: _bin_installed
 
-- name: "Get installed version of {{ _vmu_bin }}"
+- name: "Get installed version of vm{{ _vmu_bin }}"
   ansible.builtin.shell: "{{ _vmu_full_bin_path }} --version | grep -oP 'v\\d+\\.\\d+\\.\\d+'"
   register: _bin_installed_version
   changed_when: false
@@ -28,14 +28,14 @@
     name: "{{ vars['victoriametrics_' + _vmu_bin + '_system_group'] }}"
     state: "present"
 
-- name: "Create user for {{ _vmu_bin }}"
+- name: "Create user for vm{{ _vmu_bin }}"
   ansible.builtin.user:
     name: "{{ _vmu_system_user }}"
     group: "{{ _vmu_system_group }}"
     state: "present"
     system: true
 
-- name: "Install Binary Block for {{ _vmu_bin }}"
+- name: "Install Binary Block for vm{{ _vmu_bin }}"
   when: (not _bin_installed.stat.exists) or
         (_bin_installed_version.stdout != victoriametrics_cluster_version)
   block:
@@ -50,7 +50,7 @@
         mode: "0755"
         remote_src: true
 
-- name: "Push service file for {{ _vmu_bin }}"
+- name: "Push service file for vm{{ _vmu_bin }}"
   ansible.builtin.template:
     src: "vmbinary.service.j2"
     dest: "/etc/systemd/system/vm{{ _vmu_bin }}.service"

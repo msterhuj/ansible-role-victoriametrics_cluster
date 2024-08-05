@@ -19,7 +19,6 @@ victoriametrics_insert_system_group: "vminsert"
 victoriametrics_storage_system_user: "vmstorage"
 victoriametrics_storage_system_group: "vmstorage"
 
-
 ## Configuration for vmselect service
 victoriametrics_select_system_user: "vmselect"
 victoriametrics_select_system_group: "vmselect"
