@@ -1,20 +1,24 @@
 ---
 - name: "Initialize the list of services to be enabled and disabled"
-  set_fact:
+  ansible.builtin.set_fact:
     _victoriametrics_cluster_service_enabled: []
     _victoriametrics_cluster_service_disabled: []
 
 - name: "Compute the list of services to be enabled and disabled"
-  set_fact:
-    _victoriametrics_cluster_service_enabled: "{{ _victoriametrics_cluster_service_enabled + [item.name] if item.value else _victoriametrics_cluster_service_enabled }}"
-    _victoriametrics_cluster_service_disabled: "{{ _victoriametrics_cluster_service_disabled + [item.name] if not item.value else _victoriametrics_cluster_service_disabled }}"
+  ansible.builtin.set_fact:
+    _victoriametrics_cluster_service_enabled: >-
+      {{ _victoriametrics_cluster_service_enabled + [item.name]
+      if item.value else _victoriametrics_cluster_service_enabled }}
+    _victoriametrics_cluster_service_disabled: >-
+      {{ _victoriametrics_cluster_service_disabled + [item.name]
+      if not item.value else _victoriametrics_cluster_service_disabled }}
   loop:
     - { name: "insert", value: "{{ victoriametrics_cluster_insert }}" }
     - { name: "storage", value: "{{ victoriametrics_cluster_storage }}" }
     - { name: "select", value: "{{ victoriametrics_cluster_select }}" }
 
 - name: "Install binaries"
-  include_tasks: install.yml
+  ansible.builtin.include_tasks: install.yml
   loop: "{{ _victoriametrics_cluster_service_enabled }}"
   loop_control:
     loop_var: _vmu_bin

@@ -4,6 +4,9 @@
   ansible.builtin.file:
     path: "{{ _victoriametrics_tmp_folder }}"
     state: directory
+    owner: "root"
+    group: "root"
+    mode: "0755"
 
 - name: "Download victoriametrics cluster binary to tmp folder"
   ansible.builtin.get_url:
