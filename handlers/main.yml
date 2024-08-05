@@ -1,2 +1,5 @@
 ---
 # handlers file for msterhuj.victoriametrics_cluster
+- name: "Reload systemd"
+  ansible.builtin.systemd:
+    daemon_reload: yes

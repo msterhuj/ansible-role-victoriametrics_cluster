@@ -19,3 +19,4 @@
     src: "/tmp/victoria-metrics-cluster-{{ victoriametrics_cluster_version }}.tar.gz"
     dest: "{{ _victoriametrics_tmp_folder }}"
     remote_src: true
+  register: _victoriametrics_cluster_extract
