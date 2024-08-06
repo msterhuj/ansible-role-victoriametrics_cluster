@@ -20,6 +20,7 @@ victoriametrics_insert_relabel_config: ""
 ## Configuration for vminsert service
 victoriametrics_storage_system_user: "vmstorage"
 victoriametrics_storage_system_group: "vmstorage"
+victoriametrics_storage_path: "/var/lib/vmstorage"
 victoriametrics_storage_config: {}
 
 ## Configuration for vmselect service

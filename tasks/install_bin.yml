@@ -35,6 +35,15 @@
     state: "present"
     system: true
 
+- name: "Create data dir for vmstorage"
+  ansible.builtin.file:
+    path: "{{ victoriametrics_storage_path }}"
+    state: "directory"
+    owner: "{{ victoriametrics_storage_system_user }}"
+    group: "{{ victoriametrics_storage_system_group }}"
+    mode: "0755"
+  when: _vmu_bin == "storage"
+
 - name: "Install Binary Block for vm{{ _vmu_bin }}"
   when: (not _bin_installed.stat.exists) or
         (_bin_installed_version.stdout != victoriametrics_cluster_version)
