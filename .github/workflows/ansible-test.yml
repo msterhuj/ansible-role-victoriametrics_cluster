@@ -3,9 +3,9 @@ name: Lint and Test Ansible Role
 on:
   workflow_dispatch:
   push:
-    branches: ["master"]
+    branches: ["master", "main"]
   pull_request:
-    branches: ["master"]
+    branches: ["master", "main"]
 
 defaults:
   run:
