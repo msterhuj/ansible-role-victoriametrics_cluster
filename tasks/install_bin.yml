@@ -60,10 +60,3 @@
         group: "{{ _vmu_system_group }}"
         mode: "0755"
         remote_src: true
-
-- name: "Push service file for vm{{ _vmu_bin }}"
-  ansible.builtin.template:
-    src: "vmbinary.service.j2"
-    dest: "/etc/systemd/system/vm{{ _vmu_bin }}.service"
-    mode: "0644"
-  notify: "Reload systemd"

@@ -16,11 +16,9 @@
   notify: "Restart vm{{ _vmu_bin }}"
   when: _vmu_bin == "insert"
 
-- name: "Push config file for vm{{ _vmu_bin }}"
+- name: "Push service file for vm{{ _vmu_bin }}"
   ansible.builtin.template:
-    src: "vmbinary.conf.j2"
-    dest: "{{ _victoriametrics_config_dir }}/vm{{ _vmu_bin }}.conf"
+    src: "vmbinary.service.j2"
+    dest: "/etc/systemd/system/vm{{ _vmu_bin }}.service"
     mode: "0644"
-    owner: "{{ _vmu_system_user }}"
-    group: "{{ _vmu_system_group }}"
-  notify: "Restart vm{{ _vmu_bin }}"
+  notify: "Reload systemd"

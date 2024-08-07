@@ -8,8 +8,13 @@ Type=simple
 User={{ _vmu_system_user }}
 Group={{ _vmu_system_group }}
 Restart=always
-EnvironmentFile={{ _victoriametrics_config_dir }}/vm{{ _vmu_bin }}.conf
-ExecStart={{ _victoriametrics_binary_install_dir }}/vm{{ _vmu_bin }}-prod -envflag.enable
+ExecStart={{ _victoriametrics_binary_install_dir }}/vm{{ _vmu_bin }}-prod \
+{% for flag in vars['victoriametrics_' + _vmu_bin + '_flags'] %}
+    {{ flag }} \
+{% endfor %}
+{% if _vmu_bin == "storage" %}
+-storageDataPath {{ victoriametrics_storage_path }}
+{% endif %}
 
 PrivateTmp=yes
 ProtectHome=yes
