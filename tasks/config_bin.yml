@@ -21,4 +21,4 @@
     src: "vmbinary.service.j2"
     dest: "/etc/systemd/system/vm{{ _vmu_bin }}.service"
     mode: "0644"
-  notify: "Reload systemd"
+  notify: "Reload systemd vm{{ _vmu_bin }}"

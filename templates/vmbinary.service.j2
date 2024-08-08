@@ -13,7 +13,10 @@ ExecStart={{ _victoriametrics_binary_install_dir }}/vm{{ _vmu_bin }}-prod \
     {{ flag }} \
 {% endfor %}
 {% if _vmu_bin == "storage" %}
--storageDataPath {{ victoriametrics_storage_path }}
+    -storageDataPath {{ victoriametrics_storage_path }}
+{% else %}
+    {% set storage_node = vars['victoriametrics_' + _vmu_bin + '_storage_node'] %}
+    -storageNode {% for node in storage_node%}{{ node }}{% if not loop.last %},{% endif %}{% endfor %}
 {% endif %}
 
 PrivateTmp=yes

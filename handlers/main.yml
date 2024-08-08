@@ -1,8 +1,19 @@
 ---
 # handlers file for msterhuj.victoriametrics_cluster
-- name: "Reload systemd"
+- name: "Reload systemd vminsert"
   ansible.builtin.systemd:
     daemon_reload: true
+  notify: "Restart vminsert"
+
+- name: "Reload systemd vmstorage"
+  ansible.builtin.systemd:
+    daemon_reload: true
+  notify: "Restart vmstorage"
+
+- name: "Reload systemd vmselect"
+  ansible.builtin.systemd:
+    daemon_reload: true
+  notify: "Restart vmselect"
 
 - name: "Restart vminsert"
   ansible.builtin.systemd:

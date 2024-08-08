@@ -14,6 +14,7 @@ victoriametrics_cluster_select: true
 ## Configuration for vminsert service
 victoriametrics_insert_system_user: "vminsert"
 victoriametrics_insert_system_group: "vminsert"
+victoriametrics_insert_storage_node: ["http://localhost:8400"]
 victoriametrics_insert_flags: {}
 victoriametrics_insert_relabel_config: ""
 
@@ -26,4 +27,5 @@ victoriametrics_storage_flags: {}
 ## Configuration for vmselect service
 victoriametrics_select_system_user: "vmselect"
 victoriametrics_select_system_group: "vmselect"
+victoriametrics_select_storage_node: ["http://localhost:8401"]
 victoriametrics_select_flags: {}
